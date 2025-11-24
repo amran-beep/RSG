@@ -1,0 +1,1597 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Piutang KONSUMEN RURA SEJAHTERA GRUP</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary-blue: #0d47a1;
+            --secondary-blue: #1976d2;
+            --light-blue: #e3f2fd;
+            --accent-blue: #2196f3;
+            --dark-blue: #0a2d5c;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .navbar {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            border: none;
+            margin-bottom: 20px;
+        }
+        
+        .card-header {
+            background: linear-gradient(135deg, var(--secondary-blue) 0%, var(--accent-blue) 100%);
+            color: white;
+            border-radius: 10px 10px 0 0 !important;
+            font-weight: 600;
+            padding: 12px 20px;
+        }
+        
+        .btn-primary {
+            background-color: var(--secondary-blue);
+            border-color: var(--secondary-blue);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-blue);
+            border-color: var(--primary-blue);
+        }
+        
+        .btn-info {
+            background-color: var(--accent-blue);
+            border-color: var(--accent-blue);
+        }
+        
+        .btn-info:hover {
+            background-color: var(--secondary-blue);
+            border-color: var(--secondary-blue);
+        }
+        
+        .btn-outline-primary {
+            color: var(--secondary-blue);
+            border-color: var(--secondary-blue);
+        }
+        
+        .btn-outline-primary:hover {
+            background-color: var(--secondary-blue);
+            border-color: var(--secondary-blue);
+        }
+        
+        .table thead th {
+            background-color: var(--light-blue);
+            color: var(--dark-blue);
+            font-weight: 600;
+        }
+        
+        .footer {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+            color: white;
+            padding: 15px 0;
+            margin-top: 30px;
+            text-align: center;
+        }
+        
+        .filter-section {
+            background-color: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        .tab-content {
+            padding-top: 20px;
+        }
+        
+        .nav-tabs .nav-link.active {
+            color: var(--secondary-blue);
+            font-weight: 600;
+        }
+        
+        .nav-tabs .nav-link {
+            color: var(--primary-blue);
+        }
+        
+        .modal-header {
+            background: linear-gradient(135deg, var(--secondary-blue) 0%, var(--accent-blue) 100%);
+            color: white;
+        }
+        
+        .form-control:focus, .form-select:focus {
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 0.25rem rgba(33, 150, 243, 0.25);
+        }
+        
+        .debt-checkbox {
+            cursor: pointer;
+        }
+        
+        .action-buttons button {
+            margin-right: 5px;
+        }
+        
+        .logo {
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 1050;
+            display: none;
+            max-width: 350px;
+        }
+        
+        .notification.success {
+            border-left: 4px solid #4caf50;
+        }
+        
+        .notification.error {
+            border-left: 4px solid #f44336;
+        }
+        
+        .notification.info {
+            border-left: 4px solid var(--accent-blue);
+        }
+
+        /* Summary Card Styles */
+        .summary-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        .customer-summary {
+            border-left: 4px solid var(--primary-blue);
+            margin-bottom: 15px;
+            background-color: #f8f9fa;
+        }
+        
+        .location-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-right: 5px;
+        }
+        
+        .location-rmm {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+        }
+        
+        .location-bsl {
+            background-color: #fff3e0;
+            color: #ef6c00;
+        }
+        
+        .location-rp {
+            background-color: #e3f2fd;
+            color: #1565c0;
+        }
+        
+        .total-row {
+            background-color: var(--light-blue);
+            font-weight: 600;
+        }
+        
+        .grand-total {
+            background: linear-gradient(135deg, var(--secondary-blue) 0%, var(--accent-blue) 100%);
+            color: white;
+            font-weight: 700;
+        }
+
+        /* Print Styles */
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            
+            .print-container, .print-container * {
+                visibility: visible;
+            }
+            
+            .print-container {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                padding: 20px;
+            }
+            
+            .print-header {
+                text-align: center;
+                margin-bottom: 20px;
+                border-bottom: 2px solid var(--primary-blue);
+                padding-bottom: 10px;
+            }
+            
+            .print-table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 20px;
+            }
+            
+            .print-table th, .print-table td {
+                border: 1px solid #ddd;
+                padding: 8px;
+                text-align: left;
+            }
+            
+            .print-table th {
+                background-color: var(--light-blue);
+                font-weight: bold;
+            }
+            
+            .print-table .text-center {
+                text-align: center;
+            }
+            
+            .print-table .text-end {
+                text-align: right;
+            }
+            
+            .print-footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                text-align: center;
+                padding: 10px;
+                font-size: 12px;
+                border-top: 1px solid #ddd;
+            }
+            
+            .no-print {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark no-print">
+        <div class="container-fluid">
+            <a class="navbar-brand logo" href="#">
+                <i class="bi bi-wallet2"></i> Piutang KONSUMEN RURA SEJAHTERA GRUP
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <button class="btn btn-outline-light me-2" onclick="backupData()">
+                            <i class="bi bi-download"></i> Backup
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn btn-danger" onclick="resetData()">
+                            <i class="bi bi-arrow-clockwise"></i> Reset
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn btn-light ms-2" onclick="logout()">
+                            <i class="bi bi-box-arrow-right"></i> Logout
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Notification -->
+    <div id="notification" class="notification no-print">
+        <div class="d-flex align-items-center">
+            <i id="notificationIcon" class="bi me-2"></i>
+            <div id="notificationMessage"></div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container mt-4 no-print">
+        <ul class="nav nav-tabs" id="mainTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="customers-tab" data-bs-toggle="tab" data-bs-target="#customers" type="button" role="tab">
+                    <i class="bi bi-people"></i> Data Konsumen
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="transaction-tab" data-bs-toggle="tab" data-bs-target="#transaction" type="button" role="tab">
+                    <i class="bi bi-plus-circle"></i> Transaksi Baru
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="history-tab" data-bs-toggle="tab" data-bs-target="#history" type="button" role="tab">
+                    <i class="bi bi-clock-history"></i> Riwayat Transaksi
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="summary-tab" data-bs-toggle="tab" data-bs-target="#summary" type="button" role="tab">
+                    <i class="bi bi-file-earmark-bar-graph"></i> Rekapan Transaksi
+                </button>
+            </li>
+        </ul>
+
+        <div class="tab-content" id="mainTabContent">
+            <!-- Customers Tab -->
+            <div class="tab-pane fade show active" id="customers" role="tabpanel">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <span>Data Konsumen</span>
+                        <button class="btn btn-sm btn-light" data-bs-toggle="modal" data-bs-target="#customerModal">
+                            <i class="bi bi-plus-circle"></i> Tambah Konsumen
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Nama</th>
+                                        <th>Telepon</th>
+                                        <th>Alamat</th>
+                                        <th>Total Piutang</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="customerTableBody">
+                                    <!-- Customer data will be populated here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Transaction Tab -->
+            <div class="tab-pane fade" id="transaction" role="tabpanel">
+                <div class="card">
+                    <div class="card-header">
+                        <span>Transaksi Baru</span>
+                    </div>
+                    <div class="card-body">
+                        <form id="transactionForm">
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="customerSelect" class="form-label">Konsumen</label>
+                                    <select class="form-select" id="customerSelect" required>
+                                        <option value="">Pilih Konsumen</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="invoiceNumber" class="form-label">Total Nota/Invoice</label>
+                                    <input type="number" class="form-control" id="invoiceNumber" min="1" placeholder="Masukkan jumlah nota" required>
+                                </div>
+                            </div>
+                            
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="transactionDate" class="form-label">Tanggal</label>
+                                    <input type="date" class="form-control" id="transactionDate" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="pickupLocation" class="form-label">Pengambilan di</label>
+                                    <select class="form-select" id="pickupLocation">
+                                        <option value="RMM">RMM</option>
+                                        <option value="BSL">BSL</option>
+                                        <option value="RP">RP</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="row mb-3">
+                                <div class="col-md-12">
+                                    <label for="description" class="form-label">Keterangan</label>
+                                    <input type="text" class="form-control" id="description" placeholder="Keterangan transaksi">
+                                </div>
+                            </div>
+                            
+                            <div class="row mb-3">
+                                <div class="col-md-12">
+                                    <label for="amount" class="form-label">Jumlah (Rp)</label>
+                                    <input type="number" class="form-control" id="amount" placeholder="0" required>
+                                </div>
+                            </div>
+                            
+                            <div id="debtSelectionContainer" class="row mb-3" style="display: none;">
+                                <div class="col-md-12">
+                                    <label class="form-label">Pilih Piutang yang akan Dilunasi</label>
+                                    <div class="table-responsive">
+                                        <table class="table table-sm">
+                                            <thead>
+                                                <tr>
+                                                    <th>Pilih</th>
+                                                    <th>Tanggal</th>
+                                                    <th>No. Nota</th>
+                                                    <th>Jumlah</th>
+                                                    <th>Lokasi</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="debtSelectionTable">
+                                                <!-- Debt selection will be populated here -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <button type="button" class="btn btn-secondary" onclick="resetTransactionForm()">
+                                    <i class="bi bi-x-circle"></i> Batal
+                                </button>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="bi bi-check-circle"></i> Simpan Transaksi
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- History Tab -->
+            <div class="tab-pane fade" id="history" role="tabpanel">
+                <div class="filter-section">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label for="filterCustomer" class="form-label">Filter Konsumen</label>
+                            <select class="form-select" id="filterCustomer">
+                                <option value="">Semua Konsumen</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="filterLocation" class="form-label">Filter Lokasi</label>
+                            <select class="form-select" id="filterLocation">
+                                <option value="">Semua Lokasi</option>
+                                <option value="RMM">RMM</option>
+                                <option value="BSL">BSL</option>
+                                <option value="RP">RP</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="filterStartDate" class="form-label">Tanggal Mulai</label>
+                            <input type="date" class="form-select" id="filterStartDate">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="filterEndDate" class="form-label">Tanggal Selesai</label>
+                            <input type="date" class="form-select" id="filterEndDate">
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <button class="btn btn-primary" onclick="applyFilters()">
+                                <i class="bi bi-funnel"></i> Terapkan Filter
+                            </button>
+                            <button class="btn btn-outline-secondary" onclick="clearFilters()">
+                                <i class="bi bi-x-circle"></i> Hapus Filter
+                            </button>
+                            <button class="btn btn-info float-end" onclick="printTransactions()">
+                                <i class="bi bi-printer"></i> Cetak
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <span>Riwayat Transaksi</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Tanggal</th>
+                                        <th>Konsumen</th>
+                                        <th>No. Nota</th>
+                                        <th>Keterangan</th>
+                                        <th>Jumlah</th>
+                                        <th>Lokasi</th>
+                                        <th>Sisa Piutang</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="transactionTableBody">
+                                    <!-- Transaction data will be populated here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Summary Tab -->
+            <div class="tab-pane fade" id="summary" role="tabpanel">
+                <div class="filter-section">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="summaryFilterCustomer" class="form-label">Filter Konsumen</label>
+                            <select class="form-select" id="summaryFilterCustomer">
+                                <option value="">Semua Konsumen</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="summaryFilterLocation" class="form-label">Filter Lokasi</label>
+                            <select class="form-select" id="summaryFilterLocation">
+                                <option value="">Semua Lokasi</option>
+                                <option value="RMM">RMM</option>
+                                <option value="BSL">BSL</option>
+                                <option value="RP">RP</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <button class="btn btn-primary" onclick="applySummaryFilters()">
+                                <i class="bi bi-funnel"></i> Terapkan Filter
+                            </button>
+                            <button class="btn btn-outline-secondary" onclick="clearSummaryFilters()">
+                                <i class="bi bi-x-circle"></i> Hapus Filter
+                            </button>
+                            <button class="btn btn-info float-end" onclick="printSummary()">
+                                <i class="bi bi-printer"></i> Cetak Rekapan
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <span>Rekapan Transaksi per Konsumen</span>
+                        <div>
+                            <span class="badge bg-primary me-2">Total Konsumen: <span id="totalCustomers">0</span></span>
+                            <span class="badge bg-success">Total Piutang: Rp <span id="grandTotalDebt">0</span></span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div id="summaryContent">
+                            <!-- Summary content will be populated here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Print Container (Hidden by default) -->
+    <div id="printContainer" class="print-container" style="display: none;">
+        <div class="print-header">
+            <h2>LAPORAN PIUTANG KONSUMEN RURA SEJAHTERA GRUP</h2>
+            <p>Tanggal Cetak: <span id="printDate"></span></p>
+        </div>
+        
+        <table class="print-table" id="printTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Tanggal</th>
+                    <th>Konsumen</th>
+                    <th>No. Nota</th>
+                    <th>Keterangan</th>
+                    <th>Jumlah</th>
+                    <th>Lokasi</th>
+                    <th>Sisa Piutang</th>
+                </tr>
+            </thead>
+            <tbody id="printTableBody">
+                <!-- Print data will be populated here -->
+            </tbody>
+        </table>
+        
+        <div class="print-footer">
+            <p>Powered by @alyafta.id2025</p>
+        </div>
+    </div>
+
+    <!-- Summary Print Container (Hidden by default) -->
+    <div id="summaryPrintContainer" class="print-container" style="display: none;">
+        <div class="print-header">
+            <h2>REKAPAN TRANSAKSI KONSUMEN RURA SEJAHTERA GRUP</h2>
+            <p>Tanggal Cetak: <span id="summaryPrintDate"></span></p>
+        </div>
+        
+        <div id="summaryPrintContent">
+            <!-- Summary print content will be populated here -->
+        </div>
+        
+        <div class="print-footer">
+            <p>Powered by @alyafta.id2025</p>
+        </div>
+    </div>
+
+    <!-- Customer Modal -->
+    <div class="modal fade" id="customerModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Tambah Konsumen Baru</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="customerForm">
+                        <div class="mb-3">
+                            <label for="customerName" class="form-label">Nama Konsumen</label>
+                            <input type="text" class="form-control" id="customerName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="customerPhone" class="form-label">Telepon</label>
+                            <input type="tel" class="form-control" id="customerPhone" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="customerAddress" class="form-label">Alamat</label>
+                            <textarea class="form-control" id="customerAddress" rows="3"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-primary" onclick="saveCustomer()">Simpan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Transaction Modal -->
+    <div class="modal fade" id="editTransactionModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Transaksi</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editTransactionForm">
+                        <input type="hidden" id="editTransactionId">
+                        <div class="mb-3">
+                            <label for="editCustomer" class="form-label">Konsumen</label>
+                            <select class="form-select" id="editCustomer" required>
+                                <option value="">Pilih Konsumen</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editInvoiceNumber" class="form-label">Total Nota/Invoice</label>
+                            <input type="number" class="form-control" id="editInvoiceNumber" min="1" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editTransactionDate" class="form-label">Tanggal</label>
+                            <input type="date" class="form-control" id="editTransactionDate" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editPickupLocation" class="form-label">Pengambilan di</label>
+                            <select class="form-select" id="editPickupLocation">
+                                <option value="RMM">RMM</option>
+                                <option value="BSL">BSL</option>
+                                <option value="RP">RP</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editDescription" class="form-label">Keterangan</label>
+                            <input type="text" class="form-control" id="editDescription">
+                        </div>
+                        <div class="mb-3">
+                            <label for="editAmount" class="form-label">Jumlah (Rp)</label>
+                            <input type="number" class="form-control" id="editAmount" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-primary" onclick="updateTransaction()">Simpan Perubahan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer no-print">
+        <div class="container">
+            <p class="mb-0">Powered by @alyafta.id2025</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Data storage
+        let customers = JSON.parse(localStorage.getItem('customers')) || [];
+        let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+        let nextCustomerId = parseInt(localStorage.getItem('nextCustomerId')) || 1;
+        let nextTransactionId = parseInt(localStorage.getItem('nextTransactionId')) || 1;
+        let filteredTransactionsList = null;
+        let summaryFilter = {
+            customerId: null,
+            location: null
+        };
+
+        // Initialize the app
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set today's date as default
+            document.getElementById('transactionDate').valueAsDate = new Date();
+            
+            // Load data
+            renderCustomers();
+            renderTransactions();
+            updateCustomerSelects();
+            renderSummary();
+            
+            // Setup event listeners
+            document.getElementById('transactionForm').addEventListener('submit', saveTransaction);
+            document.getElementById('customerForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                saveCustomer();
+            });
+            
+            // Setup summary filter event listeners
+            document.getElementById('summaryFilterCustomer').addEventListener('change', applySummaryFilters);
+            document.getElementById('summaryFilterLocation').addEventListener('change', applySummaryFilters);
+        });
+
+        // Customer functions
+        function saveCustomer() {
+            const name = document.getElementById('customerName').value;
+            const phone = document.getElementById('customerPhone').value;
+            const address = document.getElementById('customerAddress').value;
+            
+            if (!name || !phone) {
+                showNotification('Nama dan telepon harus diisi', 'error');
+                return;
+            }
+            
+            const customer = {
+                id: nextCustomerId++,
+                name,
+                phone,
+                address,
+                totalDebt: 0
+            };
+            
+            customers.push(customer);
+            localStorage.setItem('customers', JSON.stringify(customers));
+            localStorage.setItem('nextCustomerId', nextCustomerId);
+            
+            // Reset form
+            document.getElementById('customerForm').reset();
+            bootstrap.Modal.getInstance(document.getElementById('customerModal')).hide();
+            
+            // Update UI
+            renderCustomers();
+            updateCustomerSelects();
+            renderSummary();
+            
+            showNotification('Konsumen berhasil ditambahkan', 'success');
+        }
+
+        function renderCustomers() {
+            const tbody = document.getElementById('customerTableBody');
+            tbody.innerHTML = '';
+            
+            customers.forEach(customer => {
+                // Calculate total debt for this customer
+                const customerTransactions = transactions.filter(t => t.customerId === customer.id);
+                let totalDebt = 0;
+                
+                customerTransactions.forEach(transaction => {
+                    totalDebt += transaction.amount;
+                });
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${customer.id}</td>
+                    <td>${customer.name}</td>
+                    <td>${customer.phone}</td>
+                    <td>${customer.address || '-'}</td>
+                    <td>Rp ${formatNumber(totalDebt)}</td>
+                    <td>
+                        <button class="btn btn-sm btn-outline-primary" onclick="editCustomer(${customer.id})">
+                            <i class="bi bi-pencil"></i>
+                        </button>
+                        <button class="btn btn-sm btn-outline-danger" onclick="deleteCustomer(${customer.id})">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function editCustomer(id) {
+            const customer = customers.find(c => c.id === id);
+            if (!customer) return;
+            
+            document.getElementById('customerName').value = customer.name;
+            document.getElementById('customerPhone').value = customer.phone;
+            document.getElementById('customerAddress').value = customer.address || '';
+            
+            // Change modal title and button
+            document.querySelector('#customerModal .modal-title').textContent = 'Edit Konsumen';
+            document.querySelector('#customerModal .modal-footer .btn-primary').textContent = 'Update';
+            document.querySelector('#customerModal .modal-footer .btn-primary').setAttribute('onclick', `updateCustomer(${id})`);
+            
+            bootstrap.Modal.getOrCreateInstance(document.getElementById('customerModal')).show();
+        }
+
+        function updateCustomer(id) {
+            const customerIndex = customers.findIndex(c => c.id === id);
+            if (customerIndex === -1) return;
+            
+            customers[customerIndex].name = document.getElementById('customerName').value;
+            customers[customerIndex].phone = document.getElementById('customerPhone').value;
+            customers[customerIndex].address = document.getElementById('customerAddress').value;
+            
+            localStorage.setItem('customers', JSON.stringify(customers));
+            
+            // Reset modal
+            document.getElementById('customerForm').reset();
+            document.querySelector('#customerModal .modal-title').textContent = 'Tambah Konsumen Baru';
+            document.querySelector('#customerModal .modal-footer .btn-primary').textContent = 'Simpan';
+            document.querySelector('#customerModal .modal-footer .btn-primary').setAttribute('onclick', 'saveCustomer()');
+            bootstrap.Modal.getInstance(document.getElementById('customerModal')).hide();
+            
+            // Update UI
+            renderCustomers();
+            updateCustomerSelects();
+            renderSummary();
+            
+            showNotification('Data konsumen berhasil diperbarui', 'success');
+        }
+
+        function deleteCustomer(id) {
+            if (!confirm('Apakah Anda yakin ingin menghapus konsumen ini? Semua transaksi terkait juga akan dihapus.')) {
+                return;
+            }
+            
+            // Remove customer
+            customers = customers.filter(c => c.id !== id);
+            
+            // Remove related transactions
+            transactions = transactions.filter(t => t.customerId !== id);
+            
+            localStorage.setItem('customers', JSON.stringify(customers));
+            localStorage.setItem('transactions', JSON.stringify(transactions));
+            
+            // Update UI
+            renderCustomers();
+            renderTransactions();
+            updateCustomerSelects();
+            renderSummary();
+            
+            showNotification('Konsumen dan transaksi terkait berhasil dihapus', 'success');
+        }
+
+        function updateCustomerSelects() {
+            const customerSelect = document.getElementById('customerSelect');
+            const editCustomerSelect = document.getElementById('editCustomer');
+            const filterCustomer = document.getElementById('filterCustomer');
+            const summaryFilterCustomer = document.getElementById('summaryFilterCustomer');
+            
+            // Clear existing options
+            customerSelect.innerHTML = '<option value="">Pilih Konsumen</option>';
+            editCustomerSelect.innerHTML = '<option value="">Pilih Konsumen</option>';
+            filterCustomer.innerHTML = '<option value="">Semua Konsumen</option>';
+            summaryFilterCustomer.innerHTML = '<option value="">Semua Konsumen</option>';
+            
+            // Add customer options
+            customers.forEach(customer => {
+                const option1 = document.createElement('option');
+                option1.value = customer.id;
+                option1.textContent = customer.name;
+                customerSelect.appendChild(option1);
+                
+                const option2 = document.createElement('option');
+                option2.value = customer.id;
+                option2.textContent = customer.name;
+                editCustomerSelect.appendChild(option2);
+                
+                const option3 = document.createElement('option');
+                option3.value = customer.id;
+                option3.textContent = customer.name;
+                filterCustomer.appendChild(option3);
+                
+                const option4 = document.createElement('option');
+                option4.value = customer.id;
+                option4.textContent = customer.name;
+                summaryFilterCustomer.appendChild(option4);
+            });
+        }
+
+        // Transaction functions
+        function saveTransaction(e) {
+            e.preventDefault();
+            
+            const customerId = parseInt(document.getElementById('customerSelect').value);
+            const invoiceNumber = parseInt(document.getElementById('invoiceNumber').value);
+            const date = document.getElementById('transactionDate').value;
+            const location = document.getElementById('pickupLocation').value;
+            const description = document.getElementById('description').value;
+            const amount = parseFloat(document.getElementById('amount').value);
+            
+            if (!customerId || !date || !invoiceNumber || !amount) {
+                showNotification('Mohon lengkapi semua field yang diperlukan', 'error');
+                return;
+            }
+            
+            const transaction = {
+                id: nextTransactionId++,
+                customerId,
+                invoiceNumber,
+                date,
+                location,
+                description,
+                amount
+            };
+            
+            transactions.push(transaction);
+            localStorage.setItem('transactions', JSON.stringify(transactions));
+            localStorage.setItem('nextTransactionId', nextTransactionId);
+            
+            // Reset form
+            resetTransactionForm();
+            
+            // Update UI
+            renderTransactions();
+            renderCustomers();
+            renderSummary();
+            
+            showNotification('Transaksi berhasil disimpan', 'success');
+        }
+
+        function renderTransactions(filteredTransactions = null) {
+            const tbody = document.getElementById('transactionTableBody');
+            tbody.innerHTML = '';
+            
+            const transactionsToRender = filteredTransactions || transactions;
+            filteredTransactionsList = filteredTransactions;
+            
+            // Sort transactions by date (newest first)
+            const sortedTransactions = [...transactionsToRender].sort((a, b) => {
+                return new Date(b.date) - new Date(a.date);
+            });
+            
+            sortedTransactions.forEach(transaction => {
+                const customer = customers.find(c => c.id === transaction.customerId);
+                if (!customer) return;
+                
+                // Calculate remaining debt for this customer up to this transaction
+                const customerTransactions = transactions.filter(t => 
+                    t.customerId === transaction.customerId && 
+                    new Date(t.date) <= new Date(transaction.date)
+                );
+                
+                let remainingDebt = 0;
+                customerTransactions.forEach(t => {
+                    if (t.id <= transaction.id) {  // Include transactions up to this one
+                        remainingDebt += t.amount;
+                    }
+                });
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${transaction.id}</td>
+                    <td>${formatDate(transaction.date)}</td>
+                    <td>${customer.name}</td>
+                    <td>#${transaction.invoiceNumber}</td>
+                    <td>${transaction.description || '-'}</td>
+                    <td>Rp ${formatNumber(transaction.amount)}</td>
+                    <td>${transaction.location}</td>
+                    <td>Rp ${formatNumber(remainingDebt)}</td>
+                    <td class="action-buttons">
+                        <button class="btn btn-sm btn-outline-primary" onclick="editTransaction(${transaction.id})">
+                            <i class="bi bi-pencil"></i>
+                        </button>
+                        <button class="btn btn-sm btn-outline-danger" onclick="deleteTransaction(${transaction.id})">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function editTransaction(id) {
+            const transaction = transactions.find(t => t.id === id);
+            if (!transaction) return;
+            
+            document.getElementById('editTransactionId').value = transaction.id;
+            document.getElementById('editCustomer').value = transaction.customerId;
+            document.getElementById('editInvoiceNumber').value = transaction.invoiceNumber;
+            document.getElementById('editTransactionDate').value = transaction.date;
+            document.getElementById('editPickupLocation').value = transaction.location;
+            document.getElementById('editDescription').value = transaction.description || '';
+            document.getElementById('editAmount').value = transaction.amount;
+            
+            bootstrap.Modal.getOrCreateInstance(document.getElementById('editTransactionModal')).show();
+        }
+
+        function updateTransaction() {
+            const id = parseInt(document.getElementById('editTransactionId').value);
+            const transactionIndex = transactions.findIndex(t => t.id === id);
+            
+            if (transactionIndex === -1) return;
+            
+            transactions[transactionIndex].customerId = parseInt(document.getElementById('editCustomer').value);
+            transactions[transactionIndex].invoiceNumber = parseInt(document.getElementById('editInvoiceNumber').value);
+            transactions[transactionIndex].date = document.getElementById('editTransactionDate').value;
+            transactions[transactionIndex].location = document.getElementById('editPickupLocation').value;
+            transactions[transactionIndex].description = document.getElementById('editDescription').value;
+            transactions[transactionIndex].amount = parseFloat(document.getElementById('editAmount').value);
+            
+            localStorage.setItem('transactions', JSON.stringify(transactions));
+            
+            bootstrap.Modal.getInstance(document.getElementById('editTransactionModal')).hide();
+            
+            renderTransactions();
+            renderCustomers();
+            renderSummary();
+            
+            showNotification('Transaksi berhasil diperbarui', 'success');
+        }
+
+        function deleteTransaction(id) {
+            if (!confirm('Apakah Anda yakin ingin menghapus transaksi ini?')) {
+                return;
+            }
+            
+            transactions = transactions.filter(t => t.id !== id);
+            localStorage.setItem('transactions', JSON.stringify(transactions));
+            
+            renderTransactions();
+            renderCustomers();
+            renderSummary();
+            
+            showNotification('Transaksi berhasil dihapus', 'success');
+        }
+
+        function resetTransactionForm() {
+            document.getElementById('transactionForm').reset();
+            document.getElementById('transactionDate').valueAsDate = new Date();
+            document.getElementById('debtSelectionContainer').style.display = 'none';
+        }
+
+        // Filter functions
+        function applyFilters() {
+            const customerId = document.getElementById('filterCustomer').value;
+            const location = document.getElementById('filterLocation').value;
+            const startDate = document.getElementById('filterStartDate').value;
+            const endDate = document.getElementById('filterEndDate').value;
+            
+            let filteredTransactions = [...transactions];
+            
+            if (customerId) {
+                filteredTransactions = filteredTransactions.filter(t => t.customerId == customerId);
+            }
+            
+            if (location) {
+                filteredTransactions = filteredTransactions.filter(t => t.location === location);
+            }
+            
+            if (startDate) {
+                filteredTransactions = filteredTransactions.filter(t => t.date >= startDate);
+            }
+            
+            if (endDate) {
+                filteredTransactions = filteredTransactions.filter(t => t.date <= endDate);
+            }
+            
+            renderTransactions(filteredTransactions);
+            showNotification('Filter diterapkan', 'info');
+        }
+
+        function clearFilters() {
+            document.getElementById('filterCustomer').value = '';
+            document.getElementById('filterLocation').value = '';
+            document.getElementById('filterStartDate').value = '';
+            document.getElementById('filterEndDate').value = '';
+            
+            renderTransactions();
+            showNotification('Filter dihapus', 'info');
+        }
+
+        // Summary functions
+        function renderSummary() {
+            const summaryContent = document.getElementById('summaryContent');
+            summaryContent.innerHTML = '';
+            
+            // Get filtered customers
+            let filteredCustomers = customers;
+            if (summaryFilter.customerId) {
+                filteredCustomers = filteredCustomers.filter(c => c.id === summaryFilter.customerId);
+            }
+            
+            let grandTotalDebt = 0;
+            let totalCustomers = 0;
+            
+            // Sort customers by name
+            filteredCustomers.sort((a, b) => a.name.localeCompare(b.name));
+            
+            filteredCustomers.forEach(customer => {
+                // Get customer transactions
+                const customerTransactions = transactions.filter(t => t.customerId === customer.id);
+                
+                // Group by location
+                const locationGroups = {
+                    RMM: { total: 0, count: 0 },
+                    BSL: { total: 0, count: 0 },
+                    RP: { total: 0, count: 0 }
+                };
+                
+                // Calculate totals per location
+                customerTransactions.forEach(transaction => {
+                    locationGroups[transaction.location].total += transaction.amount;
+                    locationGroups[transaction.location].count += transaction.invoiceNumber;
+                });
+                
+                // Calculate total customer debt
+                const customerTotalDebt = Object.values(locationGroups).reduce((sum, loc) => sum + loc.total, 0);
+                
+                // Only show customers with debt or if not filtered
+                if (customerTotalDebt > 0 || summaryFilter.customerId) {
+                    totalCustomers++;
+                    grandTotalDebt += customerTotalDebt;
+                    
+                    // Create customer summary card
+                    const customerCard = document.createElement('div');
+                    customerCard.className = 'customer-summary card mb-3';
+                    
+                    let locationsHtml = '';
+                    const locations = ['RMM', 'BSL', 'RP'];
+                    
+                    locations.forEach(location => {
+                        const locData = locationGroups[location];
+                        if (locData.total > 0) {
+                            // Apply location filter if active
+                            if (!summaryFilter.location || summaryFilter.location === location) {
+                                locationsHtml += `
+                                    <div class="row mb-2">
+                                        <div class="col-md-2">
+                                            <span class="location-badge location-${location.toLowerCase()}">${location}</span>
+                                        </div>
+                                        <div class="col-md-10">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <small class="text-muted">Jumlah Nota:</small><br>
+                                                    <strong>${locData.count} nota</strong>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <small class="text-muted">Total Nilai:</small><br>
+                                                    <strong>Rp ${formatNumber(locData.total)}</strong>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <small class="text-muted">Rata-rata:</small><br>
+                                                    <strong>Rp ${formatNumber(locData.count > 0 ? locData.total / locData.count : 0)}</strong>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                `;
+                            }
+                        }
+                    });
+                    
+                    customerCard.innerHTML = `
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h5 class="mb-0">
+                                    <i class="bi bi-person-circle"></i> ${customer.name}
+                                    <small class="text-muted">(${customer.phone})</small>
+                                </h5>
+                                <div class="text-end">
+                                    <small class="text-muted">Total Piutang:</small><br>
+                                    <strong class="${customerTotalDebt > 0 ? 'text-danger' : 'text-success'}">Rp ${formatNumber(customerTotalDebt)}</strong>
+                                </div>
+                            </div>
+                            ${locationsHtml}
+                        </div>
+                    `;
+                    
+                    summaryContent.appendChild(customerCard);
+                }
+            });
+            
+            // Update summary statistics
+            document.getElementById('totalCustomers').textContent = totalCustomers;
+            document.getElementById('grandTotalDebt').textContent = formatNumber(grandTotalDebt);
+            
+            // Show empty state if no data
+            if (totalCustomers === 0) {
+                summaryContent.innerHTML = `
+                    <div class="text-center py-5">
+                        <i class="bi bi-inbox display-1 text-muted"></i>
+                        <h5 class="text-muted">Tidak ada data piutang</h5>
+                        <p class="text-muted">Tidak ada konsumen dengan piutang aktif atau filter yang diterapkan tidak menampilkan hasil.</p>
+                    </div>
+                `;
+            }
+        }
+
+        function applySummaryFilters() {
+            summaryFilter.customerId = document.getElementById('summaryFilterCustomer').value ? 
+                parseInt(document.getElementById('summaryFilterCustomer').value) : null;
+            summaryFilter.location = document.getElementById('summaryFilterLocation').value || null;
+            
+            renderSummary();
+            showNotification('Filter rekapan diterapkan', 'info');
+        }
+
+        function clearSummaryFilters() {
+            document.getElementById('summaryFilterCustomer').value = '';
+            document.getElementById('summaryFilterLocation').value = '';
+            
+            summaryFilter.customerId = null;
+            summaryFilter.location = null;
+            
+            renderSummary();
+            showNotification('Filter rekapan dihapus', 'info');
+        }
+
+        // Print functions
+        function printTransactions() {
+            const printContainer = document.getElementById('printContainer');
+            const printTableBody = document.getElementById('printTableBody');
+            const printDate = document.getElementById('printDate');
+            
+            // Set print date
+            printDate.textContent = formatDate(new Date().toISOString().split('T')[0]);
+            
+            // Clear existing print data
+            printTableBody.innerHTML = '';
+            
+            // Get transactions to print (filtered or all)
+            const transactionsToPrint = filteredTransactionsList || transactions;
+            
+            // Sort transactions by date (newest first)
+            const sortedTransactions = [...transactionsToPrint].sort((a, b) => {
+                return new Date(b.date) - new Date(a.date);
+            });
+            
+            // Populate print table
+            sortedTransactions.forEach(transaction => {
+                const customer = customers.find(c => c.id === transaction.customerId);
+                if (!customer) return;
+                
+                // Calculate remaining debt for this customer up to this transaction
+                const customerTransactions = transactions.filter(t => 
+                    t.customerId === transaction.customerId && 
+                    new Date(t.date) <= new Date(transaction.date)
+                );
+                
+                let remainingDebt = 0;
+                customerTransactions.forEach(t => {
+                    if (t.id <= transaction.id) {  // Include transactions up to this one
+                        remainingDebt += t.amount;
+                    }
+                });
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${transaction.id}</td>
+                    <td>${formatDate(transaction.date)}</td>
+                    <td>${customer.name}</td>
+                    <td>#${transaction.invoiceNumber}</td>
+                    <td>${transaction.description || '-'}</td>
+                    <td>Rp ${formatNumber(transaction.amount)}</td>
+                    <td>${transaction.location}</td>
+                    <td>Rp ${formatNumber(remainingDebt)}</td>
+                `;
+                printTableBody.appendChild(row);
+            });
+            
+            // Show print container
+            printContainer.style.display = 'block';
+            
+            // Trigger print dialog
+            window.print();
+            
+            // Hide print container after printing
+            setTimeout(() => {
+                printContainer.style.display = 'none';
+            }, 100);
+            
+            showNotification('Dialog cetak telah dibuka', 'info');
+        }
+
+        function printSummary() {
+            const printContainer = document.getElementById('summaryPrintContainer');
+            const printContent = document.getElementById('summaryPrintContent');
+            const printDate = document.getElementById('summaryPrintDate');
+            
+            // Set print date
+            printDate.textContent = formatDate(new Date().toISOString().split('T')[0]);
+            
+            // Clear existing print content
+            printContent.innerHTML = '';
+            
+            // Get filtered customers
+            let filteredCustomers = customers;
+            if (summaryFilter.customerId) {
+                filteredCustomers = filteredCustomers.filter(c => c.id === summaryFilter.customerId);
+            }
+            
+            let grandTotalDebt = 0;
+            let totalCustomers = 0;
+            
+            // Calculate grand totals per division
+            const divisionTotals = {
+                RMM: 0,
+                BSL: 0,
+                RP: 0
+            };
+            
+            // Create summary table
+            const summaryTable = document.createElement('table');
+            summaryTable.className = 'print-table';
+            summaryTable.innerHTML = `
+                <thead>
+                    <tr>
+                        <th>Konsumen</th>
+                        <th>Telepon</th>
+                        <th class="text-center">Divisi</th>
+                        <th class="text-center">Jumlah Nota</th>
+                        <th class="text-end">Total Nilai</th>
+                        <th class="text-end">Total Piutang Konsumen</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            `;
+            
+            const tbody = summaryTable.querySelector('tbody');
+            
+            // Sort customers by name
+            filteredCustomers.sort((a, b) => a.name.localeCompare(b.name));
+            
+            filteredCustomers.forEach(customer => {
+                // Get customer transactions
+                const customerTransactions = transactions.filter(t => t.customerId === customer.id);
+                
+                // Group by location/division
+                const locationGroups = {
+                    RMM: { total: 0, count: 0 },
+                    BSL: { total: 0, count: 0 },
+                    RP: { total: 0, count: 0 }
+                };
+                
+                // Calculate totals per location
+                customerTransactions.forEach(transaction => {
+                    locationGroups[transaction.location].total += transaction.amount;
+                    locationGroups[transaction.location].count += transaction.invoiceNumber;
+                });
+                
+                // Calculate total customer debt
+                const customerTotalDebt = Object.values(locationGroups).reduce((sum, loc) => sum + loc.total, 0);
+                
+                // Only show customers with debt or if not filtered
+                if (customerTotalDebt > 0 || summaryFilter.customerId) {
+                    totalCustomers++;
+                    grandTotalDebt += customerTotalDebt;
+                    
+                    // Add rows for each location with transactions
+                    const locations = ['RMM', 'BSL', 'RP'];
+                    let firstRow = true;
+                    
+                    locations.forEach(location => {
+                        const locData = locationGroups[location];
+                        if (locData.total > 0) {
+                            // Apply location filter if active
+                            if (!summaryFilter.location || summaryFilter.location === location) {
+                                const row = document.createElement('tr');
+                                if (firstRow) {
+                                    row.innerHTML = `
+                                        <td rowspan="${locations.filter(l => locationGroups[l].total > 0).length}">${customer.name}</td>
+                                        <td rowspan="${locations.filter(l => locationGroups[l].total > 0).length}">${customer.phone}</td>
+                                        <td class="text-center">${location}</td>
+                                        <td class="text-center">${locData.count}</td>
+                                        <td class="text-end">Rp ${formatNumber(locData.total)}</td>
+                                        <td rowspan="${locations.filter(l => locationGroups[l].total > 0).length}" class="text-end">Rp ${formatNumber(customerTotalDebt)}</td>
+                                    `;
+                                    firstRow = false;
+                                } else {
+                                    row.innerHTML = `
+                                        <td class="text-center">${location}</td>
+                                        <td class="text-center">${locData.count}</td>
+                                        <td class="text-end">Rp ${formatNumber(locData.total)}</td>
+                                    `;
+                                }
+                                tbody.appendChild(row);
+                                
+                                // Add to division totals
+                                divisionTotals[location] += locData.total;
+                            }
+                        }
+                    });
+                }
+            });
+            
+            // Add division totals rows
+            const divisionHeaderRow = document.createElement('tr');
+            divisionHeaderRow.innerHTML = `
+                <td colspan="3" class="text-center"><strong>TOTAL PER DIVISI</strong></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            `;
+            tbody.appendChild(divisionHeaderRow);
+            
+            // Add each division total
+            Object.keys(divisionTotals).forEach(division => {
+                if (divisionTotals[division] > 0) {
+                    const divisionRow = document.createElement('tr');
+                    divisionRow.className = 'total-row';
+                    divisionRow.innerHTML = `
+                        <td class="text-center" colspan="3">${division}</td>
+                        <td></td>
+                        <td class="text-end"><strong>Rp ${formatNumber(divisionTotals[division])}</strong></td>
+                        <td></td>
+                    `;
+                    tbody.appendChild(divisionRow);
+                }
+            });
+            
+            // Add grand total row
+            const grandTotalRow = document.createElement('tr');
+            grandTotalRow.className = 'grand-total';
+            grandTotalRow.innerHTML = `
+                <td colspan="3" class="text-center"><strong>GRAND TOTAL</strong></td>
+                <td></td>
+                <td></td>
+                <td class="text-end"><strong>Rp ${formatNumber(grandTotalDebt)}</strong></td>
+            `;
+            tbody.appendChild(grandTotalRow);
+            
+            printContent.appendChild(summaryTable);
+            
+            // Show print container
+            printContainer.style.display = 'block';
+            
+            // Trigger print dialog
+            window.print();
+            
+            // Hide print container after printing
+            setTimeout(() => {
+                printContainer.style.display = 'none';
+            }, 100);
+            
+            showNotification('Dialog cetak rekapan telah dibuka', 'info');
+        }
+
+        // Reset data function
+        function resetData() {
+            if (!confirm('PERINGATAN: Ini akan menghapus SEMUA data transaksi dan konsumen. Apakah Anda yakin ingin melanjutkan?')) {
+                return;
+            }
+            
+            if (!confirm('Konfirmasi terakhir: Semua data akan hilang permanen. Lanjutkan?')) {
+                return;
+            }
+            
+            // Clear all data
+            customers = [];
+            transactions = [];
+            nextCustomerId = 1;
+            nextTransactionId = 1;
+            
+            // Update localStorage
+            localStorage.setItem('customers', JSON.stringify(customers));
+            localStorage.setItem('transactions', JSON.stringify(transactions));
+            localStorage.setItem('nextCustomerId', nextCustomerId);
+            localStorage.setItem('nextTransactionId', nextTransactionId);
+            
+            // Update UI
+            renderCustomers();
+            renderTransactions();
+            updateCustomerSelects();
+            renderSummary();
+            
+            showNotification('Semua data telah direset', 'success');
+        }
+
+        // Backup data function
+        function backupData() {
+            // Create backup data object
+            const backupData = {
+                customers: customers,
+                transactions: transactions,
+                nextCustomerId: nextCustomerId,
+                nextTransactionId: nextTransactionId,
+                backupDate: new Date().toISOString()
+            };
+            
+            // Convert to JSON string
+            const dataStr = JSON.stringify(backupData, null, 2);
+            
+            // Create blob
+            const blob = new Blob([dataStr], { type: 'application/json' });
+            
+            // Create download link
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `backup-piutang-${formatDate(new Date().toISOString().split('T')[0])}.json`;
+            
+            // Trigger download
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            
+            // Clean up
+            URL.revokeObjectURL(url);
+            
+            showNotification('Backup data berhasil diunduh', 'success');
+        }
+
+        // Logout function
+        function logout() {
+            // Save all data (already saved to localStorage)
+            localStorage.setItem('customers', JSON.stringify(customers));
+            localStorage.setItem('transactions', JSON.stringify(transactions));
+            localStorage.setItem('nextCustomerId', nextCustomerId);
+            localStorage.setItem('nextTransactionId', nextTransactionId);
+            
+            showNotification('Semua data telah disimpan. Aplikasi akan ditutup.', 'success');
+            
+            // Close application after a short delay
+            setTimeout(() => {
+                window.close();
+                // If window.close() doesn't work (browser restriction), redirect to a blank page
+                window.location.href = 'about:blank';
+            }, 2000);
+        }
+
+        // Utility functions
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('id-ID');
+        }
+
+        function formatNumber(num) {
+            return num.toLocaleString('id-ID');
+        }
+
+        function showNotification(message, type = 'info') {
+            const notification = document.getElementById('notification');
+            const notificationMessage = document.getElementById('notificationMessage');
+            const notificationIcon = document.getElementById('notificationIcon');
+            
+            notificationMessage.textContent = message;
+            notification.className = `notification ${type}`;
+            
+            // Set icon based on type
+            if (type === 'success') {
+                notificationIcon.className = 'bi bi-check-circle-fill text-success me-2';
+            } else if (type === 'error') {
+                notificationIcon.className = 'bi bi-exclamation-circle-fill text-danger me-2';
+            } else {
+                notificationIcon.className = 'bi bi-info-circle-fill text-info me-2';
+            }
+            
+            notification.style.display = 'block';
+            
+            // Auto hide after 3 seconds
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
